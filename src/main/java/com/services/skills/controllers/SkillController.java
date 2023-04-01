@@ -26,7 +26,10 @@ public class SkillController {
         return _skillService.addSkill(skill);
     }
 
-
+    @PostMapping("/existsBySkill")
+    public boolean existsBySkill(@RequestBody SkillEntity skill){
+        return _skillService.existsBySkill(skill.getSkill());
+    }
     @DeleteMapping("/deleteSkills/{id}")
     public ResponseEntity delete(@PathVariable int id){
         return _skillService.deleteSkill(id);

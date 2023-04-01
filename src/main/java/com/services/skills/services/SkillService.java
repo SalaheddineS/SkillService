@@ -15,6 +15,10 @@ public class SkillService {
     @Autowired
     SkillRepo skillRepo;
 
+    public boolean existsBySkill(String skill) {
+        return skillRepo.existsBySkill(skill);
+    }
+
     public ResponseEntity<List<SkillEntity>> getAllSkills() {
         return ResponseEntity.ok().body(skillRepo.findAll());
     }

@@ -1,13 +1,17 @@
-# Use a base image with the appropriate Java version and operating system
+# Start with a base image containing Java runtime
 FROM openjdk:17-jdk-alpine
 
-ARG JAR_FILE=target/*.jar
+# Add a volume pointing to /tmp
+VOLUME /tmp
 
-# Copy the JAR file into the container
-COPY ${JAR_FILE} app.jar
+# Make port 8080 available to the world outside this container
+EXPOSE 8081
 
-# Expose the port that the microservice will listen on
-EXPOSE 8083
+# The application's jar file
+ARG JAR_FILE=target/skills-0.0.1-SNAPSHOT.jar
 
-# Start the Spring Boot application
-CMD ["java", "-jar", "app.jar"]
+# Add the application's jar to the container
+ADD ${JAR_FILE} app.jar
+
+# Run the jar file
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
